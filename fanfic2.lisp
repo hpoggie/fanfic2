@@ -6,14 +6,16 @@
   (parse-html5 (dex:get url) :dom :xmls))
 
 (defun wikipedia-typos ()
-  "Load the Wikipedia page and get the list of typos."
+  "Load the Wikipedia page and get the list of typos.
+We only care about the actual typo'd versions, not the correct ones."
   ;; https://github.com/nightfly19/cl-arrows
   ;; Like -<>, but if a form in FORMS has no symbols named <> as top-level element,
   ;; insertion is done like in ->>. Also known as diamond spear.
   (-<>>
     (grab "http://en.wikipedia.org/wiki/Wikipedia:Lists_of_common_misspellings/For_machines")
     (find-tag-recursive "pre")
-    (split-sequence #\Newline <> :remove-empty-subseqs t)))
+    (split-sequence #\Newline <> :remove-empty-subseqs t)
+    (mapcar (lambda (x) (first (cl-strings:split x "->"))))))
 
 (defun find-tag-recursive (tagname tree)
   "Find the tag recursively in the tree.
