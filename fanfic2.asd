@@ -6,6 +6,6 @@
   :license  "Specify license here"
   :version "0.0.1"
   :serial t
-  :depends-on (#:dexador #:cl-html5-parser #:cl-arrows #:split-sequence)
+  :depends-on (#:dexador #:cl-html5-parser #:cl-arrows #:split-sequence #:cl-strings)
   :components ((:file "package")
                (:file "fanfic2")))

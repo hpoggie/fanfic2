@@ -10,6 +10,10 @@
  (:class qlot.source.ql:source-ql
   :initargs (:project-name "split-sequence" :distribution "http://beta.quicklisp.org/dist/quicklisp.txt" :%version :latest)
   :version "ql-2019-05-21"))
+("cl-strings" .
+ (:class qlot.source.ql:source-ql
+  :initargs (:project-name "cl-strings" :distribution "http://beta.quicklisp.org/dist/quicklisp.txt" :%version :latest)
+  :version "ql-2019-05-21"))
 ("cl-html5-parser" .
  (:class qlot.source.github:source-github
   :initargs (:project-name "cl-html5-parser" :repos "rotatef/cl-html5-parser" :ref nil :branch nil :tag nil)

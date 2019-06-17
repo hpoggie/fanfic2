@@ -1,4 +1,5 @@
 ql dexador :latest
 ql split-sequence :latest
+ql cl-strings :latest
 github cl-html5-parser rotatef/cl-html5-parser
 github cl-arrows nightfly19/cl-arrows
