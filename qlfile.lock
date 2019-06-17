@@ -1,0 +1,26 @@
+("quicklisp" .
+ (:class qlot.source.ql:source-ql-all
+  :initargs (:distribution "http://beta.quicklisp.org/dist/quicklisp.txt" :%version :latest)
+  :version "2019-05-21"))
+("dexador" .
+ (:class qlot.source.ql:source-ql
+  :initargs (:project-name "dexador" :distribution "http://beta.quicklisp.org/dist/quicklisp.txt" :%version :latest)
+  :version "ql-2019-05-21"))
+("split-sequence" .
+ (:class qlot.source.ql:source-ql
+  :initargs (:project-name "split-sequence" :distribution "http://beta.quicklisp.org/dist/quicklisp.txt" :%version :latest)
+  :version "ql-2019-05-21"))
+("cl-html5-parser" .
+ (:class qlot.source.github:source-github
+  :initargs (:project-name "cl-html5-parser" :repos "rotatef/cl-html5-parser" :ref nil :branch nil :tag nil)
+  :version "github-74a92eb3a183a0afd089ea33350e816e6b9aeefa"
+  :repos "rotatef/cl-html5-parser"
+  :url "https://github.com/rotatef/cl-html5-parser/archive/74a92eb3a183a0afd089ea33350e816e6b9aeefa.tar.gz"
+  :ref "74a92eb3a183a0afd089ea33350e816e6b9aeefa"))
+("cl-arrows" .
+ (:class qlot.source.github:source-github
+  :initargs (:project-name "cl-arrows" :repos "nightfly19/cl-arrows" :ref nil :branch nil :tag nil)
+  :version "github-cbb46b69a7de40f1161c9caaf6cef93b3af9994f"
+  :repos "nightfly19/cl-arrows"
+  :url "https://github.com/nightfly19/cl-arrows/archive/cbb46b69a7de40f1161c9caaf6cef93b3af9994f.tar.gz"
+  :ref "cbb46b69a7de40f1161c9caaf6cef93b3af9994f"))
