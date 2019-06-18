@@ -48,3 +48,8 @@ NOTE: assumes that the tree is in fact a tree, with no back edges."
                           (if (listp node) (setf q (append q node)))))
                   (ftrsub tagname q ret)))))
     (ftrsub tagname tree nil)))
+
+(defun extract-fic-descriptions (tree)
+  "Take a parsed tree of a page (e.g., 'just in', https://www.fanfiction.net/j/0/0/0/)
+and extract the fic descriptions"
+  (mapcar #'rest (find-tags-recursive "div" tree)))
