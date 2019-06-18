@@ -33,3 +33,18 @@ NOTE: assumes that the tree is in fact a tree, with no back edges."
                     ;; SBCL apparently can't tco this unless you put t for the condition
                 (t (ftrsub tagname q))))))
     (cadr (ftrsub tagname tree))))
+
+(defun find-tags-recursive (tagname tree)
+  "Find the tags recursively in the tree.
+NOTE: assumes that the tree is in fact a tree, with no back edges."
+  (labels ((ftrsub (tagname trees ret)
+            (if (not trees)
+                ret
+                (let (q (rt trees))
+                  (loop while rt do
+                        (let ((node (pop rt)))
+                          (if (equal node tagname)
+                              (push (list tagname (cadr rt)) ret))
+                          (if (listp node) (setf q (append q node)))))
+                  (ftrsub tagname q ret)))))
+    (ftrsub tagname tree nil)))
