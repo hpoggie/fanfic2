@@ -20,7 +20,7 @@ We only care about the actual typo'd versions, not the correct ones."
 (defun find-tag-recursive (tagname tree)
   "Find the tag recursively in the tree.
 NOTE: assumes that the tree is in fact a tree, with no back edges."
-  (cadar (find-tags-recursive tagname tree :first-only t)))
+  (first (find-tags-recursive tagname tree :first-only t)))
 
 (defun find-tags-recursive (tagname tree &key first-only)
   "Find the tags recursively in the tree.
@@ -32,8 +32,8 @@ NOTE: assumes that the tree is in fact a tree, with no back edges."
                   (loop while rt do
                         (let ((node (pop rt)))
                           (if (equal node tagname)
-                              (let ((tag-and-body (list tagname (cadr rt))))
-                                (push tag-and-body ret)
+                              (let ((body (cadr rt)))
+                                (push body ret)
                                 (when first-only
                                     (return nil))))
                           (if (listp node) (setf q (append q node)))))
