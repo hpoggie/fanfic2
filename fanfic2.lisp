@@ -20,21 +20,9 @@ We only care about the actual typo'd versions, not the correct ones."
 (defun find-tag-recursive (tagname tree)
   "Find the tag recursively in the tree.
 NOTE: assumes that the tree is in fact a tree, with no back edges."
-  (labels ((ftrsub (tagname tree)
-             (let (q)
-               (cond
-                 ((not tree) nil)
-                 ((let ((rt tree))
-                    (loop while rt do
-                          (let ((node (pop rt)))
-                            (if (equal node tagname)
-                                (return (list tagname (cadr rt))))
-                            (if (listp node) (setf q (append q node)))))))
-                    ;; SBCL apparently can't tco this unless you put t for the condition
-                (t (ftrsub tagname q))))))
-    (cadr (ftrsub tagname tree))))
+  (cadar (find-tags-recursive tagname tree :first-only t)))
 
-(defun find-tags-recursive (tagname tree)
+(defun find-tags-recursive (tagname tree &key first-only)
   "Find the tags recursively in the tree.
 NOTE: assumes that the tree is in fact a tree, with no back edges."
   (labels ((ftrsub (tagname trees ret)
@@ -44,7 +32,10 @@ NOTE: assumes that the tree is in fact a tree, with no back edges."
                   (loop while rt do
                         (let ((node (pop rt)))
                           (if (equal node tagname)
-                              (push (list tagname (cadr rt)) ret))
+                              (let ((tag-and-body (list tagname (cadr rt))))
+                                (push tag-and-body ret)
+                                (when first-only
+                                    (return nil))))
                           (if (listp node) (setf q (append q node)))))
                   (ftrsub tagname q ret)))))
     (ftrsub tagname tree nil)))
