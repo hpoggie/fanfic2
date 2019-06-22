@@ -28,3 +28,10 @@
   :repos "nightfly19/cl-arrows"
   :url "https://github.com/nightfly19/cl-arrows/archive/cbb46b69a7de40f1161c9caaf6cef93b3af9994f.tar.gz"
   :ref "cbb46b69a7de40f1161c9caaf6cef93b3af9994f"))
+("trivia" .
+ (:class qlot.source.github:source-github
+  :initargs (:project-name "trivia" :repos "guicho271828/trivia" :ref nil :branch nil :tag nil)
+  :version "github-cefa233bf3fcd4de25be3bd06e25ab1dd320a44e"
+  :repos "guicho271828/trivia"
+  :url "https://github.com/guicho271828/trivia/archive/cefa233bf3fcd4de25be3bd06e25ab1dd320a44e.tar.gz"
+  :ref "cefa233bf3fcd4de25be3bd06e25ab1dd320a44e"))
