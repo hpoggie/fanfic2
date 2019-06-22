@@ -8,4 +8,5 @@
   :serial t
   :depends-on (#:dexador #:cl-html5-parser #:cl-arrows #:split-sequence #:cl-strings #:trivia)
   :components ((:file "package")
-               (:file "fanfic2")))
+               (:file "fanfic2")
+               (:file "test")))
