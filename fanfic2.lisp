@@ -43,4 +43,9 @@ NOTE: assumes that the tree is in fact a tree, with no back edges."
 (defun extract-fic-descriptions (tree)
   "Take a parsed tree of a page (e.g., 'just in', https://www.fanfiction.net/j/0/0/0/)
 and extract the fic descriptions"
-  (mapcar #'rest (find-tags-recursive "div" tree)))
+  (->>
+   (find-tags-recursive "div" tree)
+   (mapcar (lambda (x)
+             (trivia:match x
+               ((list* "div" (list* (list "class" "z-indent z-padtop")) _)
+                x))))))
