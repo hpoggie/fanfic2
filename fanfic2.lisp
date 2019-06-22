@@ -40,6 +40,10 @@ NOTE: assumes that the tree is in fact a tree, with no back edges."
                   (ftrsub tagname q ret)))))
     (ftrsub tagname tree nil)))
 
+(defun find-tags (tagname tree)
+  ;; 1st element is the tag, 2nd is args. 3rd is what we want
+  (remove-if-not (lambda (lst) (and (listp lst) (equalp (first lst) tagname))) (cddr tree)))
+
 (defun extract-fic-descriptions (tree)
   "Take a parsed tree of a page (e.g., 'just in', https://www.fanfiction.net/j/0/0/0/)
 and extract the fic descriptions"
