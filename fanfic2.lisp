@@ -25,20 +25,13 @@ NOTE: assumes that the tree is in fact a tree, with no back edges."
 (defun find-tags-recursive (tagname tree &key first-only)
   "Find the tags recursively in the tree.
 NOTE: assumes that the tree is in fact a tree, with no back edges."
-  (labels ((ftrsub (tagname trees ret)
-            (if (not trees)
-                ret
-                (let (q (rt trees))
-                  (loop while rt do
-                        (let ((node (pop rt)))
-                          (if (equal node tagname)
-                              (let ((body (cadr rt)))
-                                (push body ret)
-                                (when first-only
-                                    (return nil))))
-                          (if (listp node) (setf q (append q node)))))
-                  (ftrsub tagname q ret)))))
-    (ftrsub tagname tree nil)))
+  (destructuring-bind (name attributes &rest content) tree
+    (remove-if #'not
+      (concatenate 'list
+                  (mapcar (lambda (element) (find-tags-recursive tagname element))
+                          (remove-if-not #'listp content))
+                  (remove-if-not (lambda (lst) (and (listp lst) (equalp (first lst) tagname)))
+                                 content)))))
 
 (defun find-tags (tagname tree)
   ;; 1st element is the tag, 2nd is args. 3rd is what we want

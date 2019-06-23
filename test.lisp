@@ -24,9 +24,16 @@
   ")
 
 (defun test-find-tags ()
-  (let ((expected (list
-                   '("div" (("class" "z-indent z-padtop")))
-                   '("div" (("class" "z-padtop2 xgray"))
-                      "Charmed, 2018 - Rated: M - English - Hurt/Comfort - Chapters: 1 - Words: 3,375 - Published: "
-                      ("span" (("data-xutime" "1561231243")) "3m") " - Mel V., Niko H."))))
-    (assert (equalp (find-tags "div" *test-fic-data*) expected))))
+  (let ((find-tags-expected (list
+                             '("div" (("class" "z-indent z-padtop")))
+                             '("div" (("class" "z-padtop2 xgray"))
+                               "Charmed, 2018 - Rated: M - English - Hurt/Comfort - Chapters: 1 - Words: 3,375 - Published: "
+                               ("span" (("data-xutime" "1561231243")) "3m") " - Mel V., Niko H."))))
+    (assert (equalp (find-tags "div" *test-fic-data*) find-tags-expected))))
+
+(defun test-find-tags-recursive ()
+  (let ((expected
+            '((("style"
+                "clear:left;float:left;margin-right:3px;padding:2px;border:1px solid #ccc;-moz-border-radius:2px;-webkit-border-radius:2px;"))
+              ("style" "min-height:77px;border-bottom:1px #cdcdcd solid;"))))
+    (assert (equalp (find-tags-recursive "style" *test-fic-data*) expected))))
