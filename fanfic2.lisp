@@ -25,13 +25,15 @@ NOTE: assumes that the tree is in fact a tree, with no back edges."
 (defun find-tags-recursive (tagname tree)
   "Find the tags recursively in the tree.
 NOTE: assumes that the tree is in fact a tree, with no back edges."
-  (destructuring-bind (name attributes &rest content) tree
+  ;; 1st and 2nd are the name and attributes, want 3rd and on
+  (let ((content (cddr tree)))
     (remove-if #'not
-      (concatenate 'list
-                  (mapcar (lambda (element) (find-tags-recursive tagname element))
-                          (remove-if-not #'listp content))
-                  (remove-if-not (lambda (lst) (and (listp lst) (equalp (first lst) tagname)))
-                                 content)))))
+               (concatenate 'list
+                            (reduce #'append
+                                    (mapcar (lambda (element) (find-tags-recursive tagname element))
+                                            (remove-if-not #'listp content)))
+                            (remove-if-not (lambda (lst) (and (listp lst) (equalp (first lst) tagname)))
+                                           content)))))
 
 (defun find-tags (tagname tree)
   ;; 1st element is the tag, 2nd is args. 3rd is what we want

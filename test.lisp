@@ -33,8 +33,8 @@
 
 (defun test-find-tags-recursive ()
   (let ((expected
-            '((("style"
-                "clear:left;float:left;margin-right:3px;padding:2px;border:1px solid #ccc;-moz-border-radius:2px;-webkit-border-radius:2px;"))
+            '(("style"
+               "clear:left;float:left;margin-right:3px;padding:2px;border:1px solid #ccc;-moz-border-radius:2px;-webkit-border-radius:2px;")
               ("style" "min-height:77px;border-bottom:1px #cdcdcd solid;"))))
     (assert (equalp (find-tags-recursive "style" *test-fic-data*) expected))
     (assert (equalp (find-tag-recursive "style" *test-fic-data*) (first expected)))))
