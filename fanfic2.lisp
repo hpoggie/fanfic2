@@ -20,9 +20,9 @@ We only care about the actual typo'd versions, not the correct ones."
 (defun find-tag-recursive (tagname tree)
   "Find the tag recursively in the tree.
 NOTE: assumes that the tree is in fact a tree, with no back edges."
-  (first (find-tags-recursive tagname tree :first-only t)))
+  (first (find-tags-recursive tagname tree)))
 
-(defun find-tags-recursive (tagname tree &key first-only)
+(defun find-tags-recursive (tagname tree)
   "Find the tags recursively in the tree.
 NOTE: assumes that the tree is in fact a tree, with no back edges."
   (destructuring-bind (name attributes &rest content) tree
