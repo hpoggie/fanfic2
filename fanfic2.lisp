@@ -48,10 +48,9 @@ NOTE: assumes that the tree is in fact a tree, with no back edges."
 
 (defun match-fic-desc (element)
   (first-cdr-where element
-                   (lambda (sublist)
-                     (trivia:match sublist
-                       ((list* '("div" (("class" "z-indent z-padtop"))) desc _)
-                        desc)))))
+                   (trivia:lambda-match
+                     ((list* '("div" (("class" "z-indent z-padtop"))) desc _)
+                      desc))))
 
 (defun get-fic-desc (element)
   (second (match-fic-desc element)))
