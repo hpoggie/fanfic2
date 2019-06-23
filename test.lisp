@@ -38,3 +38,8 @@
               ("style" "min-height:77px;border-bottom:1px #cdcdcd solid;"))))
     (assert (equalp (find-tags-recursive "style" *test-fic-data*) expected))
     (assert (equalp (find-tag-recursive "style" *test-fic-data*) (first expected)))))
+
+(defun test-get-fic-desc ()
+  (let ((expected
+          "Set after Season One. Mel is still working at the bar when a demon attacks her. Luckily Niko is there. Can she save her before it's too late?"))
+    (assert (equalp (get-fic-desc *test-fic-data*) expected))))
