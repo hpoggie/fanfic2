@@ -14,6 +14,10 @@ We only care about the actual typo'd versions, not the correct ones."
   (-<>>
     (grab "http://en.wikipedia.org/wiki/Wikipedia:Lists_of_common_misspellings/For_machines")
     (find-tag-recursive "pre")
+    ;; Get the content
+    ;; Representation looks like '("name" (("arg1" "val1") ("arg2" "val2") ...) content)
+    ;; caddr = first of rest of rest
+    (caddr)
     (split-sequence #\Newline <> :remove-empty-subseqs t)
     (mapcar (lambda (x) (first (cl-strings:split x "->"))))))
 
