@@ -33,10 +33,10 @@ NOTE: assumes that the tree is in fact a tree, with no back edges."
   (destructuring-bind (name attributes &rest content) tree
     (remove-if #'not
                (concatenate 'list
+                            (list (if (equalp name tagname) tree))
                             (reduce #'append
                                     (mapcar (lambda (element) (find-tags-recursive tagname element))
-                                            (remove-if-not #'listp content)))
-                            (list (if (equalp name tagname) tree))))))
+                                            (remove-if-not #'listp content)))))))
 
 (defun find-tags (tagname tree)
   ;; 1st element is the tag, 2nd is args. 3rd is what we want

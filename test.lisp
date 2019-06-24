@@ -37,8 +37,8 @@
             ("style"
               "clear:left;float:left;margin-right:3px;padding:2px;border:1px solid #ccc;-moz-border-radius:2px;-webkit-border-radius:2px;"))))
     (assert (equalp (find-tags-recursive "style" *test-fic-data*) expected))
-    (assert (equalp (find-tag-recursive "style" *test-fic-data*) (first expected)))))
-    ;;(assert (equalp (first (find-tags-recursive "div" *test-fic-data*)) *test-fic-data*))))
+    (assert (equalp (find-tag-recursive "style" *test-fic-data*) (first expected)))
+    (assert (equalp (first (find-tags-recursive "div" *test-fic-data*)) *test-fic-data*))))
 
 (defun test-get-fic-desc ()
   (let ((expected
