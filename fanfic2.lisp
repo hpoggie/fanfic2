@@ -54,12 +54,19 @@ NOTE: assumes that the tree is in fact a tree, with no back edges."
 (defun get-fic-desc (element)
   (second (match-fic-desc element)))
 
+(defmacro filter-match (pattern lst)
+  (let ((x (gensym)))
+    `(remove-if #'not
+                (mapcar (lambda (,x)
+                          (trivia:match ,x (,pattern ,x)))
+                        ,lst))))
+
 (defun extract-fic-descriptions (tree)
   "Take a parsed tree of a page (e.g., 'just in', https://www.fanfiction.net/j/0/0/0/)
 and extract the fic descriptions"
   (->>
    (find-tags-recursive "div" tree)
-   (mapcar (lambda (x)
-             (trivia:match x
-               ((list* "div" (list* (list "class" "z-indent z-padtop")) _)
-                x))))))
+   (filter-match
+    (list* "div" (list (list "class" "z-list zhover zpointer ")) _))
+   (mapcar #'cddr)
+   (mapcar #'get-fic-desc)))
