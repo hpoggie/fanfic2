@@ -66,7 +66,6 @@ NOTE: assumes that the tree is in fact a tree, with no back edges."
 and extract the fic descriptions"
   (->>
    (find-tags-recursive "div" tree)
-   (filter-match
-    (list* "div" (list (list "class" "z-list zhover zpointer ")) _))
-   (mapcar #'cddr)
-   (mapcar #'get-fic-desc)))
+   (remove-if-not (lambda (x)
+                    (and (listp x) (equalp (cadr x) '(("class" "z-indent z-padtop"))))))
+   (mapcar #'caddr)))
