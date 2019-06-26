@@ -44,3 +44,5 @@
   (let ((expected
           "Set after Season One. Mel is still working at the bar when a demon attacks her. Luckily Niko is there. Can she save her before it's too late?"))
     (assert (equalp (get-fic-desc *test-fic-data*) expected))))
+
+(defparameter *test-page* (grab "https://www.fanfiction.net/j/0/0/0/"))
