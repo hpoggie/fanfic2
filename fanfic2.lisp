@@ -42,18 +42,6 @@ NOTE: assumes that the tree is in fact a tree, with no back edges."
   ;; 1st element is the tag, 2nd is args. 3rd is what we want
   (remove-if-not (lambda (lst) (and (listp lst) (equalp (first lst) tagname))) (cddr tree)))
 
-(defun first-cdr-where (lst test)
-  (loop for s on lst if (funcall test s) return s))
-
-(defun match-fic-desc (element)
-  (first-cdr-where element
-                   (trivia:lambda-match
-                     ((list* '("div" (("class" "z-indent z-padtop"))) desc _)
-                      desc))))
-
-(defun get-fic-desc (element)
-  (second (match-fic-desc element)))
-
 (defmacro filter-match (pattern lst)
   (let ((x (gensym)))
     `(remove-if #'not
