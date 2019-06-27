@@ -70,3 +70,7 @@
     (assert (equalp (first (find-tags-recursive "div" *test-fic-data*)) *test-fic-data*))))
 
 (defparameter *test-page* (grab "https://www.fanfiction.net/j/0/0/0/"))
+
+(defun test-count-matches ()
+  (let ((test-desc "Link fights efel wiht his sword and sheild"))
+    (assert (equalp (count-matches test-desc) 3))))

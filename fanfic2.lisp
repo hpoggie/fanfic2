@@ -53,3 +53,10 @@ and extract the fic descriptions"
    (remove-if-not (lambda (x)
                     (and (listp x) (equalp (cadr x) '(("class" "z-indent z-padtop"))))))
    (mapcar #'caddr)))
+
+(defun count-matches (str)
+  "Take a fanfic description and count the number of keyword matches."
+  (->>
+   (split-sequence #\Space str)
+   (remove-if-not (lambda (x) (member-if (lambda (y) (equal y x)) *keywords*)))
+   (length)))
