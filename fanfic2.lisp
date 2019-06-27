@@ -13,13 +13,16 @@ We only care about the actual typo'd versions, not the correct ones."
   ;; insertion is done like in ->>. Also known as diamond spear.
   (-<>>
     (grab "http://en.wikipedia.org/wiki/Wikipedia:Lists_of_common_misspellings/For_machines")
-    (find-tag-recursive "pre")
+    (find-tags-recursive "pre")
+    (remove-if #'not)
     ;; Get the content
     ;; Representation looks like '("name" (("arg1" "val1") ("arg2" "val2") ...) content)
     ;; caddr = first of rest of rest
-    (caddr)
+    (caddar)
     (split-sequence #\Newline <> :remove-empty-subseqs t)
     (mapcar (lambda (x) (first (cl-strings:split x "->"))))))
+
+(defparameter *keywords* (wikipedia-typos))
 
 (defun find-tag-recursive (tagname tree)
   "Find the tag recursively in the tree.
