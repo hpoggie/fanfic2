@@ -14,7 +14,6 @@ We only care about the actual typo'd versions, not the correct ones."
   (-<>>
     (grab "http://en.wikipedia.org/wiki/Wikipedia:Lists_of_common_misspellings/For_machines")
     (find-tags-recursive "pre")
-    (remove-if #'not)
     ;; Get the content
     ;; Representation looks like '("name" (("arg1" "val1") ("arg2" "val2") ...) content)
     ;; caddr = first of rest of rest
@@ -28,13 +27,15 @@ We only care about the actual typo'd versions, not the correct ones."
   "Find the tags recursively in the tree.
 NOTE: assumes that the tree is in fact a tree, with no back edges."
   ;; 1st and 2nd are the name and attributes, want 3rd and on
-  (destructuring-bind (name attributes &rest content) tree
-    (declare (ignore attributes))
-    (concatenate 'list
-                 (list (if (equalp name tagname) tree))
-                 (reduce #'append
-                         (mapcar (lambda (element) (find-tags-recursive tagname element))
-                                 (filter-match (list* _ _) content))))))
+  (->>
+    (destructuring-bind (name attributes &rest content) tree
+        (declare (ignore attributes))
+        (concatenate 'list
+                    (list (if (equalp name tagname) tree))
+                    (reduce #'append
+                            (mapcar (lambda (element) (find-tags-recursive tagname element))
+                                    (filter-match (list* _ _) content)))))
+    (remove-if #'not)))
 
 (defun extract-fic-descriptions (tree)
   "Take a parsed tree of a page (e.g., 'just in', https://www.fanfiction.net/j/0/0/0/)
