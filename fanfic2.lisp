@@ -31,12 +31,11 @@ NOTE: assumes that the tree is in fact a tree, with no back edges."
 NOTE: assumes that the tree is in fact a tree, with no back edges."
   ;; 1st and 2nd are the name and attributes, want 3rd and on
   (destructuring-bind (name attributes &rest content) tree
-    (remove-if #'not
-               (concatenate 'list
-                            (list (if (equalp name tagname) tree))
-                            (reduce #'append
-                                    (mapcar (lambda (element) (find-tags-recursive tagname element))
-                                            (filter-match (list* _ _) content)))))))
+    (concatenate 'list
+                 (list (if (equalp name tagname) tree))
+                 (reduce #'append
+                         (mapcar (lambda (element) (find-tags-recursive tagname element))
+                                 (filter-match (list* _ _) content))))))
 
 (defun find-tags (tagname tree)
   ;; 1st element is the tag, 2nd is args. 3rd is what we want
