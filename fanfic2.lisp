@@ -31,6 +31,7 @@ NOTE: assumes that the tree is in fact a tree, with no back edges."
 NOTE: assumes that the tree is in fact a tree, with no back edges."
   ;; 1st and 2nd are the name and attributes, want 3rd and on
   (destructuring-bind (name attributes &rest content) tree
+    (declare (ignore attributes))
     (concatenate 'list
                  (list (if (equalp name tagname) tree))
                  (reduce #'append
