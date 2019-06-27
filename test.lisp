@@ -23,16 +23,6 @@
       " - Harry P., Hermione G., N. Tonks, Daphne G."))))
 
 
-(defun test-find-tags ()
-  (let ((find-tags-expected (list
-                             '("div" (("class" "z-indent z-padtop"))
-                               "Hermione needs to go back home quickly at the start of 'Order of the Phoenix', and asks Tonks to take her place that day. Tonks tries to fool Harry that she is the real Hermione, and things quickly escalate from there..."
-                               ("div" (("class" "z-padtop2 xgray"))
-                                "Harry Potter - Rated: T - English - Adventure/Romance - Chapters: 1 - Words: 4,270 - Reviews: 4 - Favs: 5 - Follows: 5 - Published: "
-                                ("span" (("data-xutime" "1561545884")) "4h")
-                                " - Harry P., Hermione G., N. Tonks, Daphne G.")))))
-    (assert (equalp (find-tags "div" *test-fic-data*) find-tags-expected))))
-
 (defun test-find-tags-recursive ()
   (let ((expected
           '(("div"
@@ -66,7 +56,6 @@
              ("span" (("data-xutime" "1561545884")) "4h")
              " - Harry P., Hermione G., N. Tonks, Daphne G."))))
     (assert (equalp (find-tags-recursive "div" *test-fic-data*) expected))
-    (assert (equalp (find-tag-recursive "div" *test-fic-data*) (first expected)))
     (assert (equalp (first (find-tags-recursive "div" *test-fic-data*)) *test-fic-data*))))
 
 (defparameter *test-page* (grab "https://www.fanfiction.net/j/0/0/0/"))

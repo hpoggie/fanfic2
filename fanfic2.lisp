@@ -24,11 +24,6 @@ We only care about the actual typo'd versions, not the correct ones."
 
 (defparameter *keywords* (wikipedia-typos))
 
-(defun find-tag-recursive (tagname tree)
-  "Find the tag recursively in the tree.
-NOTE: assumes that the tree is in fact a tree, with no back edges."
-  (first (find-tags-recursive tagname tree)))
-
 (defun find-tags-recursive (tagname tree)
   "Find the tags recursively in the tree.
 NOTE: assumes that the tree is in fact a tree, with no back edges."
@@ -40,10 +35,6 @@ NOTE: assumes that the tree is in fact a tree, with no back edges."
                  (reduce #'append
                          (mapcar (lambda (element) (find-tags-recursive tagname element))
                                  (filter-match (list* _ _) content))))))
-
-(defun find-tags (tagname tree)
-  ;; 1st element is the tag, 2nd is args. 3rd is what we want
-  (remove-if-not (lambda (lst) (and (listp lst) (equalp (first lst) tagname))) (cddr tree)))
 
 (defun extract-fic-descriptions (tree)
   "Take a parsed tree of a page (e.g., 'just in', https://www.fanfiction.net/j/0/0/0/)
