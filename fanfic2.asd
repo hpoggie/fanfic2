@@ -9,5 +9,6 @@
   :depends-on (#:dexador #:cl-html5-parser #:cl-arrows #:split-sequence #:cl-strings #:trivia)
   :components ((:file "package")
                (:file "util")
+               (:file "desc")
                (:file "fanfic2")
                (:file "test")))
