@@ -10,5 +10,6 @@
   :components ((:file "package")
                (:file "util")
                (:file "desc")
+               (:file "dir")
                (:file "fanfic2")
                (:file "test")))
