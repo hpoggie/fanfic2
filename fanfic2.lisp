@@ -53,3 +53,11 @@ and extract the fic descriptions"
    (split-sequence #\Space str)
    (remove-if-not (lambda (x) (member-if (lambda (y) (equal y x)) *keywords*)))
    (length)))
+
+(defun sort-descs (lst)
+  (sort (mapcar (lambda (x) (cons (count-matches x) x)) lst)
+        (lambda (x y) (> (first x) (first y)))))
+
+(defun worst (lst)
+  "Return the description from lst with the highest number of keyword matches."
+  (first (sort-descs lst)))
