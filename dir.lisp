@@ -22,4 +22,6 @@
                 (list "a" (list (list "href" link) _) _)
                 _)
          link)))
-   (remove-if #'not)))
+   (remove-if #'not)
+   (mapcar (lambda (x)
+             (concatenate 'string "https://www.fanfiction.net" x)))))
