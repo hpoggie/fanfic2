@@ -63,24 +63,3 @@
 (defun test-count-matches ()
   (let ((test-desc "Link fights efel wiht his sword and sheild"))
     (assert (equalp (count-matches test-desc) 3))))
-
-(defun bench-get ()
-  "Compares the performance of parallel vs. serial requests.
-NOTE: for educational purposes only, sending requests this fast is against the fanfiction.net ToS."
-  (print
-   (time (progn
-           (dotimes (i 50)
-            (dex:get "http://www.fanfiction.net"))
-           nil)))
-  (print
-   (time (progn
-           (let (futures)
-             (dotimes (i 50)
-               (push (eager-future2:pcall
-                       (lambda ()
-                         (dex:get "http://www.fanfiction.net"))
-                       :eager)
-                     futures))
-             (dolist (f futures)
-               (eager-future2:yield f)))
-           nil))))
