@@ -9,8 +9,20 @@
                           (trivia:match ,x (,pattern ,x)))
                         ,lst))))
 
-(defun grab (url)
-  (parse-html5 (dex:get url) :dom :xmls))
+(let ((last-time (get-internal-real-time)))
+  (defun grab (url)
+    "Get the html from the url.
+The requests are throttled to avoid violating ffnet ToS: https://www.fanfiction.net/tos/
+'You agree not to use or launch any automated system ... that sends more request messages
+to the FanFiction.Net servers in a given period of time than a human can reasonably produce
+in the same period ...'
+A rough measurement of the time it takes me to click on links gave 0.75s/link, so that's what
+I'm going with."
+    (let* ((delta-time (/ (- (get-internal-real-time) last-time) internal-time-units-per-second))
+           (to-sleep (- 0.75 delta-time)))
+      (if (> to-sleep 0) (sleep to-sleep))
+      (parse-html5 (dex:get url) :dom :xmls)
+      (setf last-time (get-internal-real-time)))))
 
 (defun find-tags-recursive (tagname tree)
   "Find the tags recursively in the tree.
