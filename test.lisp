@@ -63,3 +63,11 @@
 (defun test-count-matches ()
   (let ((test-desc "Link fights efel wiht his sword and sheild"))
     (assert (equalp (count-matches test-desc) 3))))
+
+(defun test-root ()
+  (assert (equalp
+           '("anime" "book" "cartoon" "comic" "game" "misc" "movie" "play" "tv")
+           (remove-duplicates
+            (mapcar (lambda (x) (third (split-sequence #\/ x :remove-empty-subseqs t)))
+                    (grab-root-directories))
+            :test #'equalp))))
