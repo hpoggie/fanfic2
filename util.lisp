@@ -21,8 +21,8 @@ I'm going with."
     (let* ((delta-time (/ (- (get-internal-real-time) last-time) internal-time-units-per-second))
            (to-sleep (- 0.75 delta-time)))
       (if (> to-sleep 0) (sleep to-sleep))
-      (parse-html5 (dex:get url) :dom :xmls)
-      (setf last-time (get-internal-real-time)))))
+      (setf last-time (get-internal-real-time))
+      (parse-html5 (dex:get url) :dom :xmls))))
 
 (defun find-tags-recursive (tagname tree)
   "Find the tags recursively in the tree.
