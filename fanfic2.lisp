@@ -23,7 +23,7 @@ and extract the fic descriptions"
   (->>
    (grab url)
    (extract-fic-descriptions)
-   (mapcar (lambda (x) (cons (count-matches x) x)))
+   (mapcar (lambda (x) (list (count-matches x) x url)))
    (worst)))
 
 (defun first-attempt-at-worst ()
