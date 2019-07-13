@@ -6,7 +6,8 @@
   :license  "Specify license here"
   :version "0.0.1"
   :serial t
-  :depends-on (#:dexador #:cl-html5-parser #:cl-arrows #:split-sequence #:cl-strings #:trivia)
+  :depends-on (#:dexador #:cl-html5-parser #:cl-arrows #:split-sequence #:cl-strings #:trivia
+                         #:eager-future2)
   :components ((:file "package")
                (:file "util")
                (:file "desc")

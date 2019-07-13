@@ -35,3 +35,9 @@
   :repos "guicho271828/trivia"
   :url "https://github.com/guicho271828/trivia/archive/cefa233bf3fcd4de25be3bd06e25ab1dd320a44e.tar.gz"
   :ref "cefa233bf3fcd4de25be3bd06e25ab1dd320a44e"))
+("eager-future2" .
+ (:class qlot.source.git:source-git
+  :initargs (:project-name "eager-future2" :remote-url "https://gitlab.common-lisp.net/vsedach/eager-future2.git")
+  :version "git-54df8effd9d9eccac917509590286b5ac5f9cb30"
+  :remote-url "https://gitlab.common-lisp.net/vsedach/eager-future2.git"
+  :ref "54df8effd9d9eccac917509590286b5ac5f9cb30"))

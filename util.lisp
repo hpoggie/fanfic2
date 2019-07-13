@@ -37,3 +37,7 @@ NOTE: assumes that the tree is in fact a tree, with no back edges."
                             (mapcar (lambda (element) (find-tags-recursive tagname element))
                                     (filter-match (list* _ _) content)))))
     (remove-if #'not)))
+
+(defun pmapcar (function list)
+  (loop for f in (mapcar (lambda (x) (pexec (funcall function x))) list)
+        collect (yield f)))

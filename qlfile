@@ -4,3 +4,4 @@ ql cl-strings :latest
 github cl-html5-parser rotatef/cl-html5-parser
 github cl-arrows nightfly19/cl-arrows
 github trivia guicho271828/trivia
+git eager-future2 https://gitlab.common-lisp.net/vsedach/eager-future2.git
