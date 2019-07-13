@@ -45,6 +45,7 @@
   (let ((max (num-pages url)))
     ;; This may look like gibberish but I swear it makes sense
     ;; ~a means "substitute a thing here", "?&p=" tells ffnet what page to get
+    ;; &r=10 means include all ratings
     ;; So it would expand to something like https://www.fanfiction.net/anime/Naruto/?&p=2
     (loop for i from 1 to max collect
-                              (format nil "~a?&p=~a" url i))))
+                              (format nil "~a?&r=10&p=~a" url i))))
