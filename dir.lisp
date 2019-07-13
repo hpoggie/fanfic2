@@ -2,6 +2,16 @@
 
 (in-package :fanfic2)
 
+(defun match-links (x)
+  (remove-if #'not
+    (mapcar
+        (trivia:lambda-match
+            ((list* "div" nil
+                    (list "a" (list (list "href" link) _) _)
+                    _)
+             link))
+        (find-tags-recursive "div" x))))
+
 (defun grab-root-directories ()
   "Find the urls of all works."
   (->>
@@ -15,28 +25,11 @@
              "https://www.fanfiction.net/movie/"
              "https://www.fanfiction.net/play/"
              "https://www.fanfiction.net/tv/"))
-   (mapcar (lambda (x)
-            (mapcar
-                (trivia:lambda-match
-                    ((list* "div" nil
-                            (list "a" (list (list "href" link) _) _)
-                            _)
-                     link))
-                (find-tags-recursive "div" x))))
+   (mapcar #'match-links)
    (reduce #'append)
    (remove-if #'not)
    (mapcar (lambda (x)
              (concatenate 'string "https://www.fanfiction.net" x)))))
-
-(defun match-links (x)
-  (remove-if #'not
-    (mapcar
-        (trivia:lambda-match
-            ((list* "div" nil
-                    (list "a" (list (list "href" link) _) _)
-                    _)
-             link))
-        (find-tags-recursive "div" x))))
 
 (defun unique (list)
   (reduce (lambda (x y) (if (member y x :test 'equalp)
