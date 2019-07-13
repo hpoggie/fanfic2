@@ -12,6 +12,9 @@
              link))
         (find-tags-recursive "div" x))))
 
+(defun make-absolute (link)
+  (concatenate 'string "https://www.fanfiction.net" link))
+
 (defun grab-root-directories ()
   "Find the urls of all works."
   (->>
@@ -28,8 +31,7 @@
    (mapcar #'match-links)
    (reduce #'append)
    (remove-if #'not)
-   (mapcar (lambda (x)
-             (concatenate 'string "https://www.fanfiction.net" x)))))
+   (mapcar #'make-absolute)))
 
 (defun unique (list)
   (reduce (lambda (x y) (if (member y x :test 'equalp)
@@ -51,15 +53,13 @@
              "https://www.fanfiction.net/crossovers/tv/"))
    (mapcar #'match-links)
    (reduce #'append)
-   (mapcar (lambda (x)
-             (concatenate 'string "https://www.fanfiction.net" x)))
+   (mapcar #'make-absolute)
    (mapcar #'grab)
    (mapcar #'match-links)
    (reduce #'append)
    (remove-if #'not)
    (unique)
-   (mapcar (lambda (x)
-             (concatenate 'string "https://www.fanfiction.net" x)))))
+   (mapcar #'make-absolute)))
 
 (defun num-pages (url)
   (-<>>
