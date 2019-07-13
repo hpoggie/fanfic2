@@ -28,6 +28,45 @@
    (mapcar (lambda (x)
              (concatenate 'string "https://www.fanfiction.net" x)))))
 
+(defun match-links (x)
+  (remove-if #'not
+    (mapcar
+        (trivia:lambda-match
+            ((list* "div" nil
+                    (list "a" (list (list "href" link) _) _)
+                    _)
+             link))
+        (find-tags-recursive "div" x))))
+
+(defun unique (list)
+  (reduce (lambda (x y) (if (member y x :test 'equalp)
+                            x
+                            (append x (list y))))
+        list :initial-value '()))
+
+(defun grab-root-crossovers ()
+  (->>
+   (mapcar #'grab
+           '("https://www.fanfiction.net/crossovers/anime/"
+             "https://www.fanfiction.net/crossovers/book/"
+             "https://www.fanfiction.net/crossovers/cartoon/"
+             "https://www.fanfiction.net/crossovers/comic/"
+             "https://www.fanfiction.net/crossovers/game/"
+             "https://www.fanfiction.net/crossovers/misc/"
+             "https://www.fanfiction.net/crossovers/movie/"
+             "https://www.fanfiction.net/crossovers/play/"
+             "https://www.fanfiction.net/crossovers/tv/"))
+   (mapcar #'match-links)
+   (reduce #'append)
+   (mapcar (lambda (x)
+             (concatenate 'string "https://www.fanfiction.net" x)))
+   (mapcar #'grab)
+   ;; TODO: links don't match the same way here
+   (mapcar #'match-links)
+   (reduce #'append)
+   (remove-if #'not)
+   (unique)))
+
 (defun num-pages (url)
   (-<>>
    (grab url)
