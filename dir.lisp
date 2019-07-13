@@ -7,7 +7,7 @@
     (mapcar
         (trivia:lambda-match
             ((list* "div" nil
-                    (list "a" (list (list "href" link) _) _)
+                    (list "a" (list* (list "href" link) _) _)
                     _)
              link))
         (find-tags-recursive "div" x))))
@@ -54,7 +54,6 @@
    (mapcar (lambda (x)
              (concatenate 'string "https://www.fanfiction.net" x)))
    (mapcar #'grab)
-   ;; TODO: links don't match the same way here
    (mapcar #'match-links)
    (reduce #'append)
    (remove-if #'not)
