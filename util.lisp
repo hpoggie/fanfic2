@@ -51,3 +51,8 @@ NOTE: assumes that the tree is in fact a tree, with no back edges."
     (append '(-<>>) (reduce #'append
                             (mapcar (lambda (x) `(,x (let1 foo <> (push foo *cache*) foo)))
                                     forms)))))
+
+(defun compare-timing (f1 f2)
+  (progn
+    (time (progn (funcall f1) nil))
+    (time (progn (funcall f2) nil))))
