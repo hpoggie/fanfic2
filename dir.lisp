@@ -57,7 +57,9 @@
    (mapcar #'match-links)
    (reduce #'append)
    (remove-if #'not)
-   (unique)))
+   (unique)
+   (mapcar (lambda (x)
+             (concatenate 'string "https://www.fanfiction.net" x)))))
 
 (defun num-pages (url)
   (-<>>
