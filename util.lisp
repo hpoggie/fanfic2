@@ -41,3 +41,13 @@ NOTE: assumes that the tree is in fact a tree, with no back edges."
 (defun pmapcar (function list)
   (loop for f in (mapcar (lambda (x) (pexec (funcall function x))) list)
         collect (yield f)))
+
+(defparameter *cache* '())
+
+(defmacro cache->> (&body forms)
+  "Cache the result of each form in FORMS"
+  (macrolet ((let1 (name val &body forms)
+                 `(let ((,name ,val)) ,@forms)))
+    (append '(-<>>) (reduce #'append
+                            (mapcar (lambda (x) `(,x (let1 foo <> (push foo *cache*) foo)))
+                                    forms)))))
