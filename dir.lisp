@@ -67,11 +67,14 @@
    (find-tags-recursive "a")
    (remove-if-not (lambda (x) (equalp (third x) "Last")))
    (first)
-   (trivia:match <> ((list _ (list (list _ url)) _) url))
-   (cl-strings:split <> "=")
-   (last)
-   (first)
-   (parse-integer)))
+   (trivia:match <> ((list _ (list (list _ url)) _)
+                     (->>
+                      (cl-strings:split url "=")
+                      (last)
+                      (first)
+                      (parse-integer)))
+                    ;; Handle case where there's only one page
+                    (* 1))))
 
 (defun pages (url)
   "Find the individual pages for the URL. Returns them in reverse numerical order."
