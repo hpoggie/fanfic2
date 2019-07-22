@@ -17,6 +17,7 @@
 
 (defun grab-root-directories ()
   "Find the urls of all works."
+  (format *debug-io* "Grabbing root directories.~%")
   (->>
    (mapcar #'grab
            '("https://www.fanfiction.net/anime/"
@@ -40,6 +41,7 @@
         list :initial-value '()))
 
 (defun grab-root-crossovers ()
+  (format *debug-io* "Grabbing root crossovers.")
   (->>
    (mapcar #'grab
            '("https://www.fanfiction.net/crossovers/anime/"
