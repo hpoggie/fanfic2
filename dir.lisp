@@ -41,7 +41,7 @@
         list :initial-value '()))
 
 (defun grab-root-crossovers ()
-  (format *debug-io* "Grabbing root crossovers.")
+  (format *debug-io* "Grabbing root crossovers.~%")
   (->>
    (mapcar #'grab
            '("https://www.fanfiction.net/crossovers/anime/"
