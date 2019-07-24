@@ -87,12 +87,15 @@
      ;; Handle case where there's only one page
      (* 1))))
 
-(defun pages (url)
-  "Find the individual pages for the URL. Returns them in reverse numerical order."
-  (let ((max (num-pages url)))
-    ;; This may look like gibberish but I swear it makes sense
-    ;; ~a means "substitute a thing here", "?&p=" tells ffnet what page to get
-    ;; &r=10 means include all ratings
-    ;; So it would expand to something like https://www.fanfiction.net/anime/Naruto/?&p=2
-    (loop for i from 1 to max collect
-                              (format nil "~a?&r=10&p=~a" url i))))
+(defun map-pages (func url)
+  "Do func on the individual pages for the URL."
+  (handler-case
+      (let ((max (num-pages url)))
+        ;; This may look like gibberish but I swear it makes sense
+        ;; ~a means "substitute a thing here", "?&p=" tells ffnet what page to get
+        ;; &r=10 means include all ratings
+        ;; So it would expand to something like https://www.fanfiction.net/anime/Naruto/?&p=2
+        (loop for i from 1 to max collect
+                                  (funcall func
+                                           (format nil "~a?&r=10&p=~a" url i))))
+    (dexador.error:http-request-bad-request nil)))
