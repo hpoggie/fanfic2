@@ -84,8 +84,8 @@
                       (last)
                       (first)
                       (parse-integer)))
-                    ;; Handle case where there's only one page
-                    (* 1))))
+     ;; Handle case where there's only one page
+     (* 1))))
 
 (defun pages (url)
   "Find the individual pages for the URL. Returns them in reverse numerical order."
