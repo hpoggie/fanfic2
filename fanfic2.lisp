@@ -29,7 +29,7 @@ and extract the fic descriptions"
 (defun grab-and-cache-root-dirs ()
   (let ((rdirs
           (append (grab-root-directories) (grab-root-crossovers))))
-    (format *debug-io* "Grabbed ~d root directories" (length rdirs))
+    (format *debug-io* "Grabbed ~d root directories~%" (length rdirs))
     (setf rdirs
           ;; The following links are broken
           ;; 2nd one seems to be unlisted on the actual page, but is in the source
@@ -37,7 +37,7 @@ and extract the fic descriptions"
                                              "https://www.fanfiction.net/tv/Law-Order-Division-of-Field-Investigation-%D0%97%D0%B0%D0%BA%D0%BE%D0%BD-%D0%B8-%D0%BF%D0%BE%D1%80%D1%8F%D0%B4%D0%BE%D0%BA-%D0%BE%D1%82%D0%B4%D0%B5%D0%BB-%D0%BE%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%B8%D0%B2%D0%BD%D1%8B%D1%85-%D1%80%D0%B0%D1%81%D1%81%D0%BB%D0%/")
                                          :test #'equalp))
                      rdirs))
-    (format *debug-io* "~d dirs after filtering broken links" (length rdirs))
+    (format *debug-io* "~d dirs after filtering broken links~%" (length rdirs))
     ;; Cache this in case later steps fail
     (defparameter *root-dirs* rdirs)
     rdirs))
