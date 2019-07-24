@@ -46,10 +46,6 @@ and extract the fic descriptions"
   "Find the worst fanfic from the entire site."
   (->>
    (grab-and-cache-root-dirs)
-   ;; Generating the lists of urls is slow, so we use pmapcar to make it faster
-   (pmapcar #'pages)
-   (reduce #'append)
-   (mapcar #'worst-of-page)
-   ;; If there was an error, don't use the pages
-   (remove-if-not #'first)
+   (mapcar (lambda (url)
+             (worst (map-pages #'worst-of-page url))))
    (worst)))
