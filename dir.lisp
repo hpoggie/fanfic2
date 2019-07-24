@@ -42,26 +42,35 @@
 
 (defun grab-root-crossovers ()
   (format *debug-io* "Grabbing root crossovers.~%")
-  (->>
-   (mapcar #'grab
-           '("https://www.fanfiction.net/crossovers/anime/"
-             "https://www.fanfiction.net/crossovers/book/"
-             "https://www.fanfiction.net/crossovers/cartoon/"
-             "https://www.fanfiction.net/crossovers/comic/"
-             "https://www.fanfiction.net/crossovers/game/"
-             "https://www.fanfiction.net/crossovers/misc/"
-             "https://www.fanfiction.net/crossovers/movie/"
-             "https://www.fanfiction.net/crossovers/play/"
-             "https://www.fanfiction.net/crossovers/tv/"))
-   (mapcar #'match-links)
-   (reduce #'append)
-   (mapcar #'make-absolute)
-   (mapcar #'grab)
-   (mapcar #'match-links)
-   (reduce #'append)
-   (remove-if #'not)
-   (unique)
-   (mapcar #'make-absolute)))
+  (let ((first-layer
+          (->>
+           (mapcar (lambda (url) (match-links (grab url)))
+                   '("https://www.fanfiction.net/crossovers/anime/"
+                     "https://www.fanfiction.net/crossovers/book/"
+                     "https://www.fanfiction.net/crossovers/cartoon/"
+                     "https://www.fanfiction.net/crossovers/comic/"
+                     "https://www.fanfiction.net/crossovers/game/"
+                     "https://www.fanfiction.net/crossovers/misc/"
+                     "https://www.fanfiction.net/crossovers/movie/"
+                     "https://www.fanfiction.net/crossovers/play/"
+                     "https://www.fanfiction.net/crossovers/tv/"))
+           (reduce #'append)
+           (mapcar #'make-absolute))))
+    (format *debug-io* "Got ~a links in the first layer.~%" (length first-layer))
+    (let ((urls (->>
+                 ;; Don't save the page in memory. If we save the entirety of every page
+                 ;; Lisp will freeze.
+                 (mapcar (lambda (url) (handler-case
+                                           (match-links (grab url))
+                                         ;; Ignore broken links
+                                         (dexador.error:http-request-bad-request nil)))
+                         first-layer)
+                 (reduce #'append)
+                 (remove-if #'not))))
+      (format *debug-io* "Grabbed root crossovers.~%")
+      (setf urls (unique urls))
+      (format *debug-io* "Removed duplicates.~%")
+      (mapcar #'make-absolute urls))))
 
 (defun num-pages (url)
   (-<>>
