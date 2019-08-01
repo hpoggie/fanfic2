@@ -16,7 +16,7 @@ and extract the fic descriptions"
 
 (defun worst (lst)
   "Return the description from lst with the highest number of keyword matches."
-  (first (sort-descs lst)))
+  (first (sort-descs (remove-if #'not lst))))
 
 (defun worst-of-page (url)
   (format t "Getting fic list from ~s~%" url)
